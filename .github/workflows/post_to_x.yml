@@ -1,7 +1,8 @@
 name: Daily LeetCode Tweet
 on:
   push:
-    branches: [ main ]  # Triggers whenever LeetSync pushes new code
+    branches: [ main ] # Triggers whenever LeetSync pushes new code
+  workflow_dispatch: 
 
 jobs:
   tweet:
