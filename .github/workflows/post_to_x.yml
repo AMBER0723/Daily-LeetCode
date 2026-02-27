@@ -1,0 +1,30 @@
+name: Daily LeetCode Tweet
+on:
+  push:
+    branches: [ main ]  # Triggers whenever LeetSync pushes new code
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history to accurately count folders
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Tweepy
+        run: pip install tweepy
+
+      - name: Execute Tweet Script
+        env:
+          # These pull from your GitHub Secrets
+          CONSUMER_KEY: ${{ secrets.X_API_KEY }}
+          CONSUMER_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: python tweet_script.py
